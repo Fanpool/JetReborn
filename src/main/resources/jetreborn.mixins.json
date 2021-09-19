@@ -7,8 +7,6 @@
     "ServerPlayNetworkHandlerAccessor"
   ],
   "client": [
-    "JetRebornMixin",
-    "ItemRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
