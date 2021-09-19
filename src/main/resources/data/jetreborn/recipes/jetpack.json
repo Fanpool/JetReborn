@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "a a",
+    "clc",
+    " a "
+  ],
+  "key": {
+    "l": {
+      "item": "techreborn:lithium_ion_battery"
+    },
+    "c": {
+      "item": "techreborn:advanced_circuit"
+    },
+    "a": {
+      "item": "techreborn:aluminum_plate"
+    }
+  },
+  "result": {
+    "item": "jetreborn:jetpack",
+    "count": 1
+  }
+}

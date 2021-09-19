@@ -1,0 +1,6 @@
+{
+  "jetpack": {
+    "sounds": ["jetreborn:jetpack"],
+    "subtitle": "subtitle.jetreborn.jetpack"
+  }
+}
