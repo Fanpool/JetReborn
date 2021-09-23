@@ -17,7 +17,6 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Vec3d;
 import reborncore.api.items.ArmorBlockEntityTicker;
@@ -57,11 +56,12 @@ public class JetpackItem extends TRArmourItem implements ItemStackModifiers, Arm
             ItemStack chest = player.getEquippedStack(EquipmentSlot.CHEST);
             Item item = chest.getItem();
             if (!chest.isEmpty() && item instanceof JetpackItem) {
-                JetpackItem jetpack = (JetpackItem) item;
+                JetpackItem jetpack;
+                jetpack = (JetpackItem) item;
                 boolean hover = jetpack.isHovering(chest);
                 if (jetpack.isEngineOn(chest)) {
                     if (InputHandler.isHoldingUp(player) || hover && !player.isOnGround()) {
-                        double hoverSpeed = InputHandler.isHoldingDown(player) ? JetRebornConfig.jetpackSpeedHover : JetRebornConfig.jetpackSpeedHoverSlow;
+                        double hoverSpeed = InputHandler.isHoldingDown(player) ? JetRebornConfig.jetpackSpeedHover : JetRebornConfig.jetpackSpeedHoverLow;
 
                         double currentAccel = JetRebornConfig.jetpackAccelVert * (player.getVelocity().getY() < 0.3D ? 2.5D : 1.0D);
                         double currentSpeedVertical = JetRebornConfig.jetpackSpeedVert * (player.isTouchingWater() ? 0.4D : 1.0D);
@@ -76,7 +76,7 @@ public class JetpackItem extends TRArmourItem implements ItemStackModifiers, Arm
                                     this.fly(player, Math.min(motionY + currentAccel, currentSpeedVertical));
                                 } else {
                                     if (InputHandler.isHoldingDown(player)) {
-                                        this.fly(player, Math.min(motionY + currentAccel, -JetRebornConfig.jetpackSpeedHoverSlow));
+                                        this.fly(player, Math.min(motionY + currentAccel, -JetRebornConfig.jetpackSpeedHoverLow));
                                     } else {
                                         this.fly(player, Math.min(motionY + currentAccel, JetRebornConfig.jetpackSpeedHover));
                                     }

@@ -4,7 +4,7 @@ import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.event.client.ClientTickCallback;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.jetreborn.JetReborn;
 import net.fabricmc.jetreborn.config.ModConfigs;
 import net.fabricmc.jetreborn.handler.JetpackClientHandler;
@@ -18,8 +18,9 @@ import java.util.function.Supplier;
 @Environment(EnvType.CLIENT)
 public class JetRebornClient {
     public static void onInitializeClient() {
-        ClientTickCallback.EVENT.register(KeyBindingsHandler::onClientTick);
-        ClientTickCallback.EVENT.register(JetpackClientHandler::onClientTick);
+
+        ClientTickEvents.END_CLIENT_TICK.register(KeyBindingsHandler::onClientTick);
+        ClientTickEvents.END_CLIENT_TICK.register(JetpackClientHandler::onClientTick);
 
         KeyBindingsHandler.onClientSetup();
 

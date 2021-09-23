@@ -1,8 +1,9 @@
-# Fabric Example Mod
+# JetReborn for 1.17.1
 
+A Fabric mod for Minecraft Java Edition and an addon for Tech Reborn.
 ## Setup
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
+
 
 ## License
 

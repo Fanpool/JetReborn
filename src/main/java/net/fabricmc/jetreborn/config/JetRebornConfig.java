@@ -20,7 +20,7 @@ public class JetRebornConfig {
     public static double jetpackSpeedHover = 0.27D;
 
     @Config(config = "items", category = "power", key = "jetpackSpeedHoverSlow", comment = "Jetpack Speed Hover Slow")
-    public static double jetpackSpeedHoverSlow = 0.075D;
+    public static double jetpackSpeedHoverLow = 0.075D;
 
     @Config(config = "items", category = "power", key = "jetpackSpeedVert", comment = "Jetpack Speed Vert")
     public static double jetpackSpeedVert = 0.23D;
@@ -33,5 +33,14 @@ public class JetRebornConfig {
 
     @Config(config = "items", category = "power", key = "jetpackSprintSpeed", comment = "Jetpack Sprint Speed")
     public static double jetpackSprintSpeed = 1.1D;
+
+    @Config(config = "items", category = "power", key = "FuelJetpackMaxFuel", comment = "FuelJetpackMaxFuel")
+    public static double fuelJetpackMaxFuel = 100D;
+
+    @Config(config = "items", category = "power", key = "FuelJetpackFlyCost", comment = "FuelJetpackFlyCost")
+    public static double fuelJetpackFlyCost = 0.3D;
+
+    @Config(config = "items", category = "power", key = "FuelJetpackFlyCostLow", comment = "FuelJetpackFlyCostLow")
+    public static double fuelJetpackFlyCostLow = 0.18D;
 
 }

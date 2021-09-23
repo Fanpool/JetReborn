@@ -34,7 +34,6 @@ public class JetpackClientHandler {
                         float random = (RANDOM.nextFloat() - 0.5F) * 0.1F;
                         double[] sneakBonus = mc.player.isSneaking() ? new double[]{-0.30, -0.10} : new double[]{0, 0};
 
-                        Vec3d rotation = Vec3d.fromPolar(0, mc.player.bodyYaw);
                         Vec3d vLeft = new Vec3d(-0.18, -0.90 + sneakBonus[1], -0.30 + sneakBonus[0]).rotateX(0).rotateY(mc.player.bodyYaw * -0.017453292F);
                         Vec3d vRight = new Vec3d(0.18, -0.90 + sneakBonus[1], -0.30 + sneakBonus[0]).rotateX(0).rotateY(mc.player.bodyYaw * -0.017453292F);
 
