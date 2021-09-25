@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.jetreborn.config.JetRebornConfig;
 import net.fabricmc.jetreborn.config.ModConfigs;
-import net.fabricmc.jetreborn.items.armor.JetpackItem;
+import net.fabricmc.jetreborn.items.armor.ElectricJetpackItem;
 import net.fabricmc.jetreborn.sound.JetpackSound;
 import net.fabricmc.jetreborn.util.JetpackUtils;
 import net.minecraft.client.MinecraftClient;
@@ -27,7 +27,7 @@ public class JetpackClientHandler {
             if (!mc.isPaused()) {
                 ItemStack chest = mc.player.getEquippedStack(EquipmentSlot.CHEST);
                 Item item = chest.getItem();
-                if (!chest.isEmpty() && item instanceof JetpackItem && JetpackUtils.isFlying(mc.player)) {
+                if (!chest.isEmpty() && item instanceof ElectricJetpackItem && JetpackUtils.isFlying(mc.player)) {
                     if (ModConfigs.getClient().general.enableJetpackParticles && (mc.options.particles != ParticlesMode.MINIMAL)) {
                         Vec3d playerPos = mc.player.getPos().add(0, 1.5, 0);
 
@@ -37,11 +37,11 @@ public class JetpackClientHandler {
                         Vec3d vLeft = new Vec3d(-0.18, -0.90 + sneakBonus[1], -0.30 + sneakBonus[0]).rotateX(0).rotateY(mc.player.bodyYaw * -0.017453292F);
                         Vec3d vRight = new Vec3d(0.18, -0.90 + sneakBonus[1], -0.30 + sneakBonus[0]).rotateX(0).rotateY(mc.player.bodyYaw * -0.017453292F);
 
-                        Vec3d v = playerPos.add(vLeft).add(mc.player.getVelocity().multiply(JetRebornConfig.jetpackSpeedSide));
+                        Vec3d v = playerPos.add(vLeft).add(mc.player.getVelocity().multiply(JetRebornConfig.electricJetpackSpeedSide));
                         mc.particleManager.addParticle(ParticleTypes.FLAME, v.x, v.y, v.z, random, -0.2D, random);
                         mc.particleManager.addParticle(ParticleTypes.SMOKE, v.x, v.y, v.z, random, -0.2D, random);
 
-                        v = playerPos.add(vRight).add(mc.player.getVelocity().multiply(JetRebornConfig.jetpackSpeedSide));
+                        v = playerPos.add(vRight).add(mc.player.getVelocity().multiply(JetRebornConfig.electricJetpackSpeedSide));
                         mc.particleManager.addParticle(ParticleTypes.FLAME, v.x, v.y, v.z, random, -0.2D, random);
                         mc.particleManager.addParticle(ParticleTypes.SMOKE, v.x, v.y, v.z, random, -0.2D, random);
                     }

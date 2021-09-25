@@ -1,7 +1,7 @@
 package net.fabricmc.jetreborn.events;
 
 import net.fabricmc.jetreborn.init.TRArmorMaterials;
-import net.fabricmc.jetreborn.items.armor.JetpackItem;
+import net.fabricmc.jetreborn.items.armor.ElectricJetpackItem;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 import techreborn.utils.InitUtils;
@@ -13,7 +13,7 @@ public class ModRegistry {
     }
 
     private static void registryItems() {
-        final JetpackItem ITEM = InitUtils.setup(new JetpackItem(TRArmorMaterials.JETPACK), "jetpack");
+        final ElectricJetpackItem ITEM = InitUtils.setup(new ElectricJetpackItem(TRArmorMaterials.JETPACK), "jetpack");
 
         Registry.register(Registry.ITEM, new Identifier("jetreborn", "jetpack"), ITEM);
     }

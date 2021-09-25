@@ -1,7 +1,7 @@
 package net.fabricmc.jetreborn.util;
 
 import net.fabricmc.jetreborn.handler.InputHandler;
-import net.fabricmc.jetreborn.items.armor.JetpackItem;
+import net.fabricmc.jetreborn.items.armor.ElectricJetpackItem;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -12,8 +12,8 @@ public class JetpackUtils {
         ItemStack stack = player.getEquippedStack(EquipmentSlot.CHEST);
         if (!stack.isEmpty()) {
             Item item = stack.getItem();
-            if (item instanceof JetpackItem) {
-                JetpackItem jetpack = (JetpackItem) item;
+            if (item instanceof ElectricJetpackItem) {
+                ElectricJetpackItem jetpack = (ElectricJetpackItem) item;
                 if (jetpack.isEngineOn(stack) && (jetpack.getStoredEnergy(stack) > 0 || player.isCreative())) {
                     if (jetpack.isHovering(stack)) {
                         return !player.isOnGround();

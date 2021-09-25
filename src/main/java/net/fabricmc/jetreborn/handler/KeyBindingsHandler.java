@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.jetreborn.JetReborn;
-import net.fabricmc.jetreborn.items.armor.JetpackItem;
+import net.fabricmc.jetreborn.items.armor.ElectricJetpackItem;
 import net.fabricmc.jetreborn.lib.ModTooltips;
 import net.fabricmc.jetreborn.network.NetworkHandler;
 import net.fabricmc.jetreborn.network.message.ToggleEngineMessage;
@@ -70,8 +70,8 @@ public class KeyBindingsHandler {
         ItemStack chest = player.getEquippedStack(EquipmentSlot.CHEST);
         Item item = chest.getItem();
 
-        if (item instanceof JetpackItem) {
-            JetpackItem jetpack = (JetpackItem) item;
+        if (item instanceof ElectricJetpackItem) {
+            ElectricJetpackItem jetpack = (ElectricJetpackItem) item;
 
             while (keyEngine.wasPressed()) {
                 NetworkHandler.sendToServer(new ToggleEngineMessage());

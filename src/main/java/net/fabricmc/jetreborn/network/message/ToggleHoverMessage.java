@@ -1,7 +1,7 @@
 package net.fabricmc.jetreborn.network.message;
 
 import net.fabricmc.fabric.api.network.PacketContext;
-import net.fabricmc.jetreborn.items.armor.JetpackItem;
+import net.fabricmc.jetreborn.items.armor.ElectricJetpackItem;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,8 +24,8 @@ public class ToggleHoverMessage {
             if (player != null) {
                 ItemStack stack = player.getEquippedStack(EquipmentSlot.CHEST);
                 Item item = stack.getItem();
-                if (item instanceof JetpackItem) {
-                    JetpackItem jetpack = (JetpackItem) item;
+                if (item instanceof ElectricJetpackItem) {
+                    ElectricJetpackItem jetpack = (ElectricJetpackItem) item;
                     jetpack.toggleHover(stack);
                 }
             }

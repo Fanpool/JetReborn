@@ -5,6 +5,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.jetreborn.config.JetRebornConfig;
 import net.fabricmc.jetreborn.handler.InputHandler;
+import net.fabricmc.jetreborn.items.Jetpack;
 import net.fabricmc.jetreborn.mixin.ServerPlayNetworkHandlerAccessor;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
@@ -31,22 +32,29 @@ import techreborn.items.armor.TRArmourItem;
 import techreborn.utils.InitUtils;
 
 
-public class JetpackItem extends TRArmourItem implements ItemStackModifiers, ArmorBlockEntityTicker, ArmorRemoveHandler, RcEnergyItem {
+public class ElectricJetpackItem extends TRArmourItem implements ItemStackModifiers, ArmorBlockEntityTicker, RcEnergyItem, Jetpack {
 
-    public final long maxCharge = JetRebornConfig.basicJetpackCharge;
-    public final long flyCost = JetRebornConfig.jetpackFlyingCost;
-    public final long flyCostSlow = JetRebornConfig.jetpackFlyingCostSlow;
+    public final long maxCharge = JetRebornConfig.electricJetpackCharge;
+    public final long flyCost = JetRebornConfig.electricJetpackFlyingCost;
+    public final long flyCostSlow = JetRebornConfig.electricJetpackFlyingCostSlow;
     public final boolean enableFlight = JetRebornConfig.jetpackEnableFlight;
+    public final short Armor = JetRebornConfig.electricJetpackArmor;
+    public final double AccelVert = JetRebornConfig.electricJetpackAccelVert;
+    public final double SpeedVert = JetRebornConfig.electricJetpackSpeedVert;
+    public final double SpeedHover = JetRebornConfig.electricJetpackSpeedHover;
+    public final double SpeedHoverSlow = JetRebornConfig.electricJetpackSpeedHoverSlow;
+    public final double SpeedSide = JetRebornConfig.electricJetpackSpeedSide;
+    public final double SprintSpeed = JetRebornConfig.electricJetpackSprintSpeed;
 
-    public JetpackItem(ArmorMaterial material) {
+
+    public ElectricJetpackItem(ArmorMaterial material) {
         super(material, EquipmentSlot.CHEST, new Settings().group(TechReborn.ITEMGROUP).maxCount(1).maxDamage(-1));
     }
 
     @Override
     public void getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack, Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
         if (equipmentSlot == this.slot && getStoredEnergy(stack) > 0) {
-            attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Armor modifier", 3, EntityAttributeModifier.Operation.ADDITION));
-
+            attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Armor modifier", Armor, EntityAttributeModifier.Operation.ADDITION));
         }
     }
 
@@ -55,16 +63,16 @@ public class JetpackItem extends TRArmourItem implements ItemStackModifiers, Arm
         if (enableFlight) {
             ItemStack chest = player.getEquippedStack(EquipmentSlot.CHEST);
             Item item = chest.getItem();
-            if (!chest.isEmpty() && item instanceof JetpackItem) {
-                JetpackItem jetpack;
-                jetpack = (JetpackItem) item;
+            if (!chest.isEmpty() && item instanceof ElectricJetpackItem) {
+                ElectricJetpackItem jetpack;
+                jetpack = (ElectricJetpackItem) item;
                 boolean hover = jetpack.isHovering(chest);
                 if (jetpack.isEngineOn(chest)) {
                     if (InputHandler.isHoldingUp(player) || hover && !player.isOnGround()) {
-                        double hoverSpeed = InputHandler.isHoldingDown(player) ? JetRebornConfig.jetpackSpeedHover : JetRebornConfig.jetpackSpeedHoverLow;
+                        double hoverSpeed = InputHandler.isHoldingDown(player) ? SpeedHover : SpeedHoverSlow;
 
-                        double currentAccel = JetRebornConfig.jetpackAccelVert * (player.getVelocity().getY() < 0.3D ? 2.5D : 1.0D);
-                        double currentSpeedVertical = JetRebornConfig.jetpackSpeedVert * (player.isTouchingWater() ? 0.4D : 1.0D);
+                        double currentAccel = AccelVert * (player.getVelocity().getY() < 0.3D ? 2.5D : 1.0D);
+                        double currentSpeedVertical = SpeedVert * (player.isTouchingWater() ? 0.4D : 1.0D);
 
                         long cost = player.isSprinting() ? flyCost : flyCostSlow;
                         tryUseEnergy(stack, cost);
@@ -76,17 +84,17 @@ public class JetpackItem extends TRArmourItem implements ItemStackModifiers, Arm
                                     this.fly(player, Math.min(motionY + currentAccel, currentSpeedVertical));
                                 } else {
                                     if (InputHandler.isHoldingDown(player)) {
-                                        this.fly(player, Math.min(motionY + currentAccel, -JetRebornConfig.jetpackSpeedHoverLow));
+                                        this.fly(player, Math.min(motionY + currentAccel, -SpeedHoverSlow));
                                     } else {
-                                        this.fly(player, Math.min(motionY + currentAccel, JetRebornConfig.jetpackSpeedHover));
+                                        this.fly(player, Math.min(motionY + currentAccel, SpeedHover));
                                     }
                                 }
                             } else {
                                 this.fly(player, Math.min(motionY + currentAccel, -hoverSpeed));
                             }
 
-                            float speedSideways = (float) (player.isSneaking() ? JetRebornConfig.jetpackSpeedSide * 0.5F : JetRebornConfig.jetpackSpeedSide);
-                            float speedForward = (float) (player.isSprinting() ? speedSideways * JetRebornConfig.jetpackSprintSpeed : speedSideways);
+                            float speedSideways = (float) (player.isSneaking() ? SpeedSide * 0.5F : SpeedSide);
+                            float speedForward = (float) (player.isSprinting() ? speedSideways * SprintSpeed : speedSideways);
 
                             if (InputHandler.isHoldingForwards(player)) {
                                 player.updateVelocity(0.1F, new Vec3d(0, 0, speedForward));
@@ -152,44 +160,5 @@ public class JetpackItem extends TRArmourItem implements ItemStackModifiers, Arm
     @Override
     public double getDurability(ItemStack stack) {
         return 1 - ItemUtils.getPowerForDurabilityBar(stack);
-    }
-
-    @Override
-    public void onRemoved(PlayerEntity playerEntity) {
-        if (this.slot == EquipmentSlot.CHEST && enableFlight) {
-            if (!playerEntity.isCreative() && !playerEntity.isSpectator()) {
-                playerEntity.getAbilities().allowFlying = false;
-                playerEntity.getAbilities().flying = false;
-            }
-        }
-    }
-
-    private void fly(PlayerEntity player, double y) {
-        Vec3d motion = player.getVelocity();
-        player.setVelocity(motion.getX(), y, motion.getZ());
-    }
-
-    public boolean isEngineOn(ItemStack stack) {
-        NbtCompound tag = stack.getNbt();
-        return tag != null && tag.contains("Engine") && tag.getBoolean("Engine");
-    }
-
-    public boolean toggleEngine(ItemStack stack) {
-        NbtCompound tag = stack.getOrCreateNbt();
-        boolean current = tag.contains("Engine") && tag.getBoolean("Engine");
-        tag.putBoolean("Engine", !current);
-        return !current;
-    }
-
-    public boolean isHovering(ItemStack stack) {
-        NbtCompound tag = stack.getNbt();
-        return tag != null && tag.contains("Hover") && tag.getBoolean("Hover");
-    }
-
-    public boolean toggleHover(ItemStack stack) {
-        NbtCompound tag = stack.getOrCreateNbt();
-        boolean current = tag.contains("Hover") && tag.getBoolean("Hover");
-        tag.putBoolean("Hover", !current);
-        return !current;
     }
 }
