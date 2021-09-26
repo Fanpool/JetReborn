@@ -4,8 +4,14 @@ import reborncore.common.config.Config;
 
 public class JetRebornConfig {
 
+    @Config(config = "items", category = "power", key = "enableJetpackParticles", comment = "Enable Jetpack particles")
+    public static boolean enableJetpackParticles = true;
+
     @Config(config = "items", category = "power", key = "jetpackEnableFlight", comment = "Enable Flight on jetpack")
     public static boolean jetpackEnableFlight = true;
+
+    @Config(config = "items", category = "items", key = "enableJetpackSounds", comment = "Enable Jetpack sounds")
+    public static boolean enableJetpackSounds = true;
 
     @Config(config = "items", category = "power", key = "electricJetpackMaxEnergy", comment = "Energy Capacity for Basic Jetpack")
     public static int electricJetpackCharge = 100_000;
@@ -57,4 +63,10 @@ public class JetRebornConfig {
 
     @Config(config = "items", category = "power", key = "fuelJetpackSprintSpeed", comment = "fuelJetpackSpringSpeed")
     public static double fuelJetpackSprintSpeed = 1.1D;
+
+    @Config(config = "items", category = "power", key = "fuelJetpackSpeedHover", comment = "fuelJetpackSpeedHover")
+    public static double fuelJetpackSpeedHover = 0.27D;
+
+    @Config(config = "items", category = "power", key = "fuelJetpackSpeedHoverSlow", comment = "fuelJetpackSpeedSlow")
+    public static double fuelJetpackSpeedHoverSlow = 0.075D;
 }

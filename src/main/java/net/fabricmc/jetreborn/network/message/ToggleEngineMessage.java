@@ -2,7 +2,7 @@ package net.fabricmc.jetreborn.network.message;
 
 
 import net.fabricmc.fabric.api.network.PacketContext;
-import net.fabricmc.jetreborn.items.armor.ElectricJetpackItem;
+import net.fabricmc.jetreborn.items.Jetpack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,8 +25,7 @@ public class ToggleEngineMessage {
             if (player != null) {
                 ItemStack stack = player.getEquippedStack(EquipmentSlot.CHEST);
                 Item item = stack.getItem();
-                if (item instanceof ElectricJetpackItem) {
-                    ElectricJetpackItem jetpack = (ElectricJetpackItem) item;
+                if (item instanceof Jetpack jetpack) {
                     jetpack.toggleEngine(stack);
                 }
             }

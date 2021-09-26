@@ -6,6 +6,11 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.Vec3d;
 
 public interface Jetpack {
+
+    double getSpeedSide();
+
+    boolean canFly(ItemStack stack);
+
     default boolean isHovering(ItemStack stack) {
         NbtCompound tag = stack.getNbt();
         return tag != null && tag.contains("Hover") && tag.getBoolean("Hover");
