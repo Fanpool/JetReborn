@@ -51,7 +51,7 @@ public class ElectricJetpackItem extends TRArmourItem implements ItemStackModifi
 
     @Override
     public void getAttributeModifiers(EquipmentSlot equipmentSlot, ItemStack stack, Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
-        if (equipmentSlot == this.slot && getStoredEnergy(stack) > 0) {
+        if (equipmentSlot == this.slot) {
             attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Armor modifier", armor, EntityAttributeModifier.Operation.ADDITION));
         }
     }

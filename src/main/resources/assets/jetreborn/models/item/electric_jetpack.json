@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "jetreborn:item/jetpack"
+    "layer0": "jetreborn:item/electric_jetpack"
   }
 }

@@ -69,4 +69,7 @@ public class JetRebornConfig {
 
     @Config(config = "items", category = "power", key = "fuelJetpackSpeedHoverSlow", comment = "fuelJetpackSpeedSlow")
     public static double fuelJetpackSpeedHoverSlow = 0.075D;
+
+    @Config(config = "items", category = "power", key = "fuelJetpackArmor", comment = "Fuel jetpack armor")
+    public static short fuelJetpackArmor = 2;
 }

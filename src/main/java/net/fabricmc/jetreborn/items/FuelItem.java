@@ -18,7 +18,7 @@ public interface FuelItem {
         return getStoredFuelUnchecked(stack);
     }
 
-    default void setStoredFueL(ItemStack stack, double newAmount) {
+    default void setStoredFuel(ItemStack stack, double newAmount) {
         if (stack.getCount() != 1) {
             throw new IllegalArgumentException("Invalid count: " + stack.getCount());
         }
@@ -30,7 +30,7 @@ public interface FuelItem {
         if (newAmount < 0) {
             return false;
         } else {
-            setStoredFueL(stack, newAmount);
+            setStoredFuel(stack, newAmount);
             return true;
         }
     }

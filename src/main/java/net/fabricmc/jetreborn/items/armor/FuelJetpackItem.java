@@ -1,8 +1,11 @@
 package net.fabricmc.jetreborn.items.armor;
 
 import com.google.common.collect.Multimap;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.jetreborn.config.JetRebornConfig;
 import net.fabricmc.jetreborn.handler.InputHandler;
+import net.fabricmc.jetreborn.items.CustomDurabilityItem;
 import net.fabricmc.jetreborn.items.FuelItem;
 import net.fabricmc.jetreborn.items.Jetpack;
 import net.fabricmc.jetreborn.mixin.ServerPlayNetworkHandlerAccessor;
@@ -13,17 +16,20 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.math.Vec3d;
 import reborncore.api.items.ArmorBlockEntityTicker;
-import reborncore.api.items.ArmorRemoveHandler;
 import reborncore.api.items.ItemStackModifiers;
+import reborncore.common.powerSystem.PowerSystem;
 import techreborn.TechReborn;
 import techreborn.items.armor.TRArmourItem;
 
-public class FuelJetpackItem extends TRArmourItem implements ItemStackModifiers, ArmorBlockEntityTicker, ArmorRemoveHandler, FuelItem, Jetpack {
+public class FuelJetpackItem extends TRArmourItem implements ItemStackModifiers, CustomDurabilityItem, ArmorBlockEntityTicker, FuelItem, Jetpack {
 
+    public final short armor = JetRebornConfig.fuelJetpackArmor;
     public final double maxFuel = JetRebornConfig.fuelJetpackMaxFuel;
     public final double flyCost = JetRebornConfig.fuelJetpackFlyCost;
     public final double flyCostSlow = JetRebornConfig.fuelJetpackFlyCostLow;
@@ -41,9 +47,25 @@ public class FuelJetpackItem extends TRArmourItem implements ItemStackModifiers,
 
     @Override
     public void getAttributeModifiers(EquipmentSlot slot, ItemStack stack, Multimap<EntityAttribute, EntityAttributeModifier> attributes) {
-        if (slot == this.slot && getStoredFuel(stack) > 0) {
-            attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Armor modifier", 3, EntityAttributeModifier.Operation.ADDITION));
+        if (slot == this.slot) {
+            attributes.put(EntityAttributes.GENERIC_ARMOR, new EntityAttributeModifier(MODIFIERS[slot.getEntitySlotId()], "Armor modifier", armor, EntityAttributeModifier.Operation.ADDITION));
         }
+    }
+
+    @Environment(EnvType.CLIENT)
+    @Override
+    public void appendStacks(ItemGroup group, DefaultedList<ItemStack> itemList) {
+        if (!isIn(group)) {
+            return;
+        }
+        ItemStack uncharged = new ItemStack(this);
+        ItemStack charged = new ItemStack(this);
+        FuelItem fuelItem = this;
+
+        fuelItem.setStoredFuel(charged, fuelItem.getFuelCapacity());
+
+        itemList.add(uncharged);
+        itemList.add(charged);
     }
 
     @Override
@@ -51,9 +73,7 @@ public class FuelJetpackItem extends TRArmourItem implements ItemStackModifiers,
         if (enableFlight) {
             ItemStack chest = player.getEquippedStack(EquipmentSlot.CHEST);
             Item item = chest.getItem();
-            if (!chest.isEmpty() && item instanceof ElectricJetpackItem) {
-                ElectricJetpackItem jetpack;
-                jetpack = (ElectricJetpackItem) item;
+            if (!chest.isEmpty() && item instanceof FuelJetpackItem jetpack) {
                 boolean hover = jetpack.isHovering(chest);
                 if (jetpack.isEngineOn(chest)) {
                     if (InputHandler.isHoldingUp(player) || hover && !player.isOnGround()) {
@@ -115,11 +135,6 @@ public class FuelJetpackItem extends TRArmourItem implements ItemStackModifiers,
     }
 
     @Override
-    public void onRemoved(PlayerEntity playerEntity) {
-
-    }
-
-    @Override
     public double getFuelCapacity() {
         return maxFuel;
     }
@@ -135,4 +150,30 @@ public class FuelJetpackItem extends TRArmourItem implements ItemStackModifiers,
 
     @Override
     public boolean canFly(ItemStack stack) { return getStoredFuel(stack) > 0; }
+
+    @Override
+    public double getDurabilityBarProgress(ItemStack stack) { return 0; }
+
+    @Override
+    public boolean hasDurabilityBar(ItemStack stack) { return false; }
+
+    @Override
+    public int getDurabilityColor(ItemStack stack) {
+        return PowerSystem.getDisplayPower().colour;
+    }
+
+    @Override
+    public boolean showDurability(ItemStack stack) {
+        return true;
+    }
+
+    @Override
+    public double getDurability(ItemStack stack) {
+        double q;
+        if (!(stack.getItem() instanceof FuelItem)) {
+            return 1;
+        }
+        q =  getStoredFuel(stack) / getFuelCapacity();
+        return 1 - q;
+    }
 }

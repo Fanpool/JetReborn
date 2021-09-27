@@ -14,10 +14,10 @@ public class ModRegistry {
     }
 
     private static void registryItems() {
-        final ElectricJetpackItem ELECTRIC_JETPACK = InitUtils.setup(new ElectricJetpackItem(TRArmorMaterials.JETPACK), "Electric jetpack");
-        final FuelJetpackItem FUEL_JETPACK = InitUtils.setup(new FuelJetpackItem(TRArmorMaterials.JETPACK), "Fuel jetpack");
+        final ElectricJetpackItem ELECTRIC_JETPACK = InitUtils.setup(new ElectricJetpackItem(TRArmorMaterials.JETPACK), "electric_jetpack");
+        final FuelJetpackItem FUEL_JETPACK = InitUtils.setup(new FuelJetpackItem(TRArmorMaterials.JETPACK), "fuel_jetpack");
 
-        Registry.register(Registry.ITEM, new Identifier("jetreborn", "electricJetpack"), ELECTRIC_JETPACK);
-        Registry.register(Registry.ITEM, new Identifier("jetreborn", "fuelJetpack"), FUEL_JETPACK);
+        Registry.register(Registry.ITEM, new Identifier("jetreborn", "electric_jetpack"), ELECTRIC_JETPACK);
+        Registry.register(Registry.ITEM, new Identifier("jetreborn", "fuel_jetpack"), FUEL_JETPACK);
     }
 }

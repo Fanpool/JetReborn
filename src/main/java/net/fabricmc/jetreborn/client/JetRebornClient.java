@@ -5,6 +5,7 @@ import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.jetreborn.JetReborn;
 import net.fabricmc.jetreborn.config.ModConfigs;
 import net.fabricmc.jetreborn.handler.JetpackClientHandler;
@@ -21,6 +22,7 @@ public class JetRebornClient {
 
         ClientTickEvents.END_CLIENT_TICK.register(KeyBindingsHandler::onClientTick);
         ClientTickEvents.END_CLIENT_TICK.register(JetpackClientHandler::onClientTick);
+        ItemTooltipCallback.EVENT.register(new FuelStackToolTipHandler());
 
         KeyBindingsHandler.onClientSetup();
 
