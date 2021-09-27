@@ -149,7 +149,7 @@ public class FuelJetpackItem extends TRArmourItem implements ItemStackModifiers,
     public double getSpeedSide() { return speedSide; }
 
     @Override
-    public boolean canFly(ItemStack stack) { return getStoredFuel(stack) > 0; }
+    public boolean canFly(ItemStack stack) { return getStoredFuel(stack) > flyCost; }
 
     @Override
     public double getDurabilityBarProgress(ItemStack stack) { return 0; }

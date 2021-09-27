@@ -10,7 +10,7 @@ import net.minecraft.util.Lazy;
 import java.util.Locale;
 import java.util.function.Supplier;
 
-public enum TRArmorMaterials implements ArmorMaterial {
+public enum ArmorMaterials implements ArmorMaterial {
 
     JETPACK(25, new int[]{0, 3, 0, 0}, 10, SoundEvents.ITEM_ARMOR_EQUIP_TURTLE, 0.0F, () -> Ingredient.EMPTY);
 
@@ -22,8 +22,8 @@ public enum TRArmorMaterials implements ArmorMaterial {
     private final float toughness;
     private final Lazy<Ingredient> repairMaterial;
 
-    TRArmorMaterials(int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
-                     SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairMaterialIn) {
+    ArmorMaterials(int maxDamageFactor, int[] damageReductionAmountArray, int enchantability,
+                   SoundEvent soundEvent, float toughness, Supplier<Ingredient> repairMaterialIn) {
         this.maxDamageFactor = maxDamageFactor;
         this.damageReductionAmountArray = damageReductionAmountArray;
         this.enchantability = enchantability;

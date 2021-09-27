@@ -1,11 +1,8 @@
 package net.fabricmc.jetreborn;
 
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
-import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.jetreborn.config.JetRebornConfig;
-import net.fabricmc.jetreborn.config.ModConfigs;
 import net.fabricmc.jetreborn.events.ModRegistry;
 import net.fabricmc.jetreborn.network.NetworkHandler;
 import net.fabricmc.jetreborn.sound.ModSounds;
@@ -39,8 +36,6 @@ public class JetReborn implements ModInitializer {
         ModRegistry.setup();
         ModSounds.register();
         NetworkHandler.onCommonSetup();
-
-        AutoConfig.register(ModConfigs.Common.class, JanksonConfigSerializer::new);
 
         if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
             try {

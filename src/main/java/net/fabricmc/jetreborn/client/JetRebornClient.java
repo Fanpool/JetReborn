@@ -1,13 +1,10 @@
 package net.fabricmc.jetreborn.client;
 
-import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
-import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.jetreborn.JetReborn;
-import net.fabricmc.jetreborn.config.ModConfigs;
 import net.fabricmc.jetreborn.handler.JetpackClientHandler;
 import net.fabricmc.jetreborn.handler.KeyBindingsHandler;
 import net.minecraft.client.MinecraftClient;
@@ -25,8 +22,6 @@ public class JetRebornClient {
         ItemTooltipCallback.EVENT.register(new FuelStackToolTipHandler());
 
         KeyBindingsHandler.onClientSetup();
-
-        AutoConfig.register(ModConfigs.Client.class, JanksonConfigSerializer::new);
 
         Supplier<MinecraftServer> oldServerSupplier = JetReborn.serverSupplier;
         JetReborn.serverSupplier = () -> {

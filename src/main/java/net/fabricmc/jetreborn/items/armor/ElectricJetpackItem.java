@@ -162,5 +162,5 @@ public class ElectricJetpackItem extends TRArmourItem implements ItemStackModifi
     public double getSpeedSide() { return speedSide; }
 
     @Override
-    public boolean canFly(ItemStack stack) { return getStoredEnergy(stack) > 0; }
+    public boolean canFly(ItemStack stack) { return getStoredEnergy(stack) > flyCost; }
 }
