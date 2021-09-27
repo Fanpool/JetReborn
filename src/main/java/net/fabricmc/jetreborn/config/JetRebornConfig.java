@@ -13,6 +13,8 @@ public class JetRebornConfig {
     @Config(config = "items", category = "items", key = "enableJetpackSounds", comment = "Enable Jetpack sounds")
     public static boolean enableJetpackSounds = true;
 
+
+    // Electric jetpack
     @Config(config = "items", category = "power", key = "electricJetpackMaxEnergy", comment = "Energy Capacity for Basic Jetpack")
     public static int electricJetpackCharge = 100_000;
 
@@ -43,6 +45,8 @@ public class JetRebornConfig {
     @Config(config = "items", category = "power", key = "electricJetpackArmor", comment  = "Fuel jetpack armor")
     public static short electricJetpackArmor = 3;
 
+
+    // Fuel jetpack
     @Config(config = "items", category = "power", key = "fuelJetpackMaxFuel", comment = "FuelJetpackMaxFuel")
     public static double fuelJetpackMaxFuel = 100D;
 
@@ -72,4 +76,36 @@ public class JetRebornConfig {
 
     @Config(config = "items", category = "power", key = "fuelJetpackArmor", comment = "Fuel jetpack armor")
     public static short fuelJetpackArmor = 2;
+
+
+    // Battery jetpack
+    @Config(config = "items", category = "power", key = "electricJetpackMaxEnergy", comment = "Energy Capacity for Basic Jetpack")
+    public static int batteryJetpackCharge = 1_000_000;
+
+    @Config(config = "items", category = "power", key = "batteryJeypackFlyingCost", comment = "Jetpack Flying Cost")
+    public static long batteryJetpackFlyingCost = 30;
+
+    @Config(config = "items", category = "power", key = "batteryJetpackFlyingCostSlow", comment = "Jetpack Flying Cost")
+    public static long batteryJetpackFlyingCostSlow = 18;
+
+    @Config(config = "items", category = "power", key = "batteryJetpackSpeedHover", comment = "Jetpack Hover Speed")
+    public static double batteryJetpackSpeedHover = 0.27D;
+
+    @Config(config = "items", category = "power", key = "batteryJetpackSpeedHoverSlow", comment = "Jetpack Speed Hover Slow")
+    public static double batteryJetpackSpeedHoverSlow = 0.075D;
+
+    @Config(config = "items", category = "power", key = "batteryJetpackSpeedVert", comment = "Jetpack Speed Vert")
+    public static double batteryJetpackSpeedVert = 0.23D;
+
+    @Config(config = "items", category = "power", key = "batteryJetpackAccelVert", comment = "Jetpack Accel Vert")
+    public static double batteryJetpackAccelVert = 0.12D;
+
+    @Config(config = "items", category = "power", key = "batteryJetpackSpeedSide", comment = "Jetpack Speed Side")
+    public static double batteryJetpackSpeedSide = 0.2D;
+
+    @Config(config = "items", category = "power", key = "batteryJetpackSprintSpeed", comment = "Jetpack Sprint Speed")
+    public static double batteryJetpackSprintSpeed = 1.1D;
+
+    @Config(config = "items", category = "power", key = "batteryJetpackArmor", comment  = "Fuel jetpack armor")
+    public static short batteryJetpackArmor = 3;
 }

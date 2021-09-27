@@ -7,8 +7,9 @@ import net.minecraft.util.math.Vec3d;
 
 public interface Jetpack {
 
-    double getSpeedSide();
+    double flyCost = 1.0d;
 
+    double getSpeedSide();
     boolean canFly(ItemStack stack);
 
     default boolean isHovering(ItemStack stack) {
